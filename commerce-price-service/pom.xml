@@ -61,11 +61,11 @@
 				<configuration>
 					<serviceProviders>
 						<serviceProvider>
-							<name>FortuneService</name>
+							<name>CommerceUIPrice</name>
 							<consumers>
 								<consumer>
-									<name>FortuneUi</name>
-									<pactFile>../fortune-teller-ui/target/pacts/FortuneUi-FortuneService.json</pactFile>
+									<name>CommerceUiPriceService</name>
+									<pactFile>../commerce-ui/target/pacts/CommerceUi-CommercePriceService.json</pactFile>
 								</consumer>
 							</consumers>
 						</serviceProvider>

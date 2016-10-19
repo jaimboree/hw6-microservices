@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<start-class>io.spring.cloud.samples.commerce.fortuneservice.Application</start-class>
+		<start-class>io.spring.cloud.samples.commerce.itemservice.Application</start-class>
 	</properties>
 
 	<dependencies>
@@ -61,11 +61,11 @@
 				<configuration>
 					<serviceProviders>
 						<serviceProvider>
-							<name>FortuneService</name>
+							<name>CommerceItemService</name>
 							<consumers>
 								<consumer>
-									<name>FortuneUi</name>
-									<pactFile>../fortune-teller-ui/target/pacts/FortuneUi-FortuneService.json</pactFile>
+									<name>CommerceUi</name>
+									<pactFile>../commerce-ui/target/pacts/CommerceUi-CommerceItemService.json</pactFile>
 								</consumer>
 							</consumers>
 						</serviceProvider>
