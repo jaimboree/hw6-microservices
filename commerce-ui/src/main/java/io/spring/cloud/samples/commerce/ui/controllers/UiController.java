@@ -1,11 +1,13 @@
 package io.spring.cloud.samples.commerce.ui.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.spring.cloud.samples.commerce.ui.services.items.Item;
-import io.spring.cloud.samples.commerce.ui.services.prices.Price;
 import io.spring.cloud.samples.commerce.ui.services.items.ItemService;
 import io.spring.cloud.samples.commerce.ui.services.prices.PriceService;
 
@@ -13,31 +15,53 @@ import io.spring.cloud.samples.commerce.ui.services.prices.PriceService;
 public class UiController {
 
     @Autowired
-    ItemService itemService = new ItemService();
-    PriceService priceService = new PriceService();
+    ItemService itemService;
+    @Autowired
+    PriceService priceService;
 
     @RequestMapping("/items")
-    public String itemsAll() {
-        //Item[] items = itemService.itemsAll();
+    public Item[] itemsAll() {
+        Item[] items = itemService.itemsAll();
     	//make call to price service
-        String price = priceService.pricesAll();
+        Map price = priceService.pricesAll();
 
-        /*
-        for(Item i : items)
-        {
-        	if (price.getPrices().containsKey(i.getId()))
-        		i.setPrice(price.getPrices().get(i.getId()));
-        }
-    	*/
     	//join data
-    	
-    	return price;
+        for(int i=0; i<items.length; i++)
+        {
+        	if (price.containsKey(items[i].getId().toString()))
+        		items[i].setPrice(price.get(items[i].getId().toString()).toString());
+        }
+    	return items;
     }
     
-    @RequestMapping("/items/category")
-    public Item[] itemsByCategory() {
-        //make call to item servic
-    	return itemService.itemsByCategory("shoes");
+    @RequestMapping("/category/{category}")
+    public Item[] itemsByCategory( @PathVariable("category") String category) {
+    	Item[] items = itemService.itemsByCategory(category);
+        Map price = priceService.pricesAll();
+
+    	//join data
+        for(int i=0; i<items.length; i++)
+        {
+        	if (price.containsKey(items[i].getId().toString()))
+        		items[i].setPrice(price.get(items[i].getId().toString()).toString());
+        }
+    	return items;
     }
 
+    @RequestMapping("/item/{itemId}")
+    public Item itemsById(@PathVariable("itemId") String itemId) {
+    	Item[] items = itemService.itemsAll();
+        Map price = priceService.pricesById(itemId);
+
+        Item item = new Item();
+        for (Item i : items){
+        	if (i.getId().toString().equals(itemId)){
+            	if (price.containsKey("price"))
+            		i.setPrice(price.get("price").toString());
+        		item = i;
+        	}
+        }
+        
+    	return item;
+    }
 }

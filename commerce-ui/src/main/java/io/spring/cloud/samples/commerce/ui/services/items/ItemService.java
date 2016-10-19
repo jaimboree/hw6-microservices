@@ -27,6 +27,11 @@ public class ItemService {
         return restTemplate.getForObject("http://item/category/" + category, Item[].class);
     }
     
+    @HystrixCommand(fallbackMethod = "fallbackItem")
+    public Item[] itemsById(String id) {
+        return restTemplate.getForObject("http://item/category/" + id, Item[].class);
+    }
+
     private Item[] fallbackItem(String category) {
         return itemProperties.getCategoryItemFromProperty(category);
     }

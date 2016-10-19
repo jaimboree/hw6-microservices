@@ -1,6 +1,9 @@
 package io.spring.cloud.samples.commerce.ui.services.prices;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -16,21 +19,21 @@ public class PriceService {
     @Autowired
     RestTemplate restTemplate;
 
-    @HystrixCommand(fallbackMethod = "fallbackDummy")
-    public String pricesAll() {
-    	return restTemplate.getForObject("http://price/prices", String.class);
+    @HystrixCommand(fallbackMethod = "fallbackPrice")
+    public Map pricesAll() {
+    	return restTemplate.getForObject("http://price/prices", Map.class);
     }
 
     @HystrixCommand(fallbackMethod = "fallbackPrice")
-    public Price pricesById(String id) {
-        return restTemplate.getForObject("http://price/price/" + id, Price.class);
+    public Map pricesById(String id) {
+        return restTemplate.getForObject("http://price/price/" + id, Map.class);
     }
 
-    private Price fallbackPrice() {
+    private Map fallbackPrice() {
         return priceProperties.getDummyPriceFromProperty();
-    }
-    
-    private String fallbackDummy() {
-        return "This is failing";
-    }
+    }    
+
+    private Map fallbackPrice(String id) {
+        return priceProperties.getDummyPriceFromProperty();
+    }    
 }

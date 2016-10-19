@@ -27,4 +27,5 @@ public class ItemController {
     Iterable<Item> items = repository.findByCategory(category);
     return items;
   }
+  
 }

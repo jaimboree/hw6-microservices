@@ -36,4 +36,4 @@ item:
     
 price:
   ribbon:
-    listOfServers: localhost:8090
+    listOfServers:  localhost:8090
