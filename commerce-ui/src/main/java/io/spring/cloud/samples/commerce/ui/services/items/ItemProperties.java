@@ -32,6 +32,10 @@ public class ItemProperties {
       return getDummyItemFromProperty();
   }
   
+  public Item[] getItemIdFromProperty(String id) {
+      return getDummyItemFromProperty();
+  }
+
   public Item[] getDummyItemFromProperty() {
 	  Item[] item = {new Item(9999L, "N/A", "N/A", "N/A")};
       return item;

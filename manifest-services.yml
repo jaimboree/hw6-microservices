@@ -1,0 +1,13 @@
+---
+memory: 384M
+instances: 1
+applications:
+- name: config-server
+  host: commerce-config-server
+  path: commerce-config-server/target/commerce-config-server-0.0.1-SNAPSHOT.jar
+- name: eureka
+  host: commerce-eureka
+  path: commerce-eureka/target/commerce-eureka-0.0.1-SNAPSHOT.jar
+- name: hystrix-dashboard
+  host: commerce-hystrix-dashboard
+path: commerce-hystrix-dashboard/target/commerce-hystrix-dashboard-0.0.1-SNAPSHOT.jar

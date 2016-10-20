@@ -50,16 +50,15 @@ public class UiController {
 
     @RequestMapping("/item/{itemId}")
     public Item itemsById(@PathVariable("itemId") String itemId) {
-    	Item[] items = itemService.itemsAll();
+    	Item[] items = itemService.itemsById(itemId);
         Map price = priceService.pricesById(itemId);
+        
 
         Item item = new Item();
         for (Item i : items){
-        	if (i.getId().toString().equals(itemId)){
-            	if (price.containsKey("price"))
-            		i.setPrice(price.get("price").toString());
-        		item = i;
-        	}
+            if (price.containsKey("price"))
+            	i.setPrice(price.get("price").toString());
+        	item = i;
         }
         
     	return item;

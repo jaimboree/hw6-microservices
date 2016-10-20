@@ -22,18 +22,22 @@ public class ItemService {
         return restTemplate.getForObject("http://item/items", Item[].class);
     }
 
-    @HystrixCommand(fallbackMethod = "fallbackItem")
+    @HystrixCommand(fallbackMethod = "fallbackCategory")
     public Item[] itemsByCategory(String category) {
         return restTemplate.getForObject("http://item/category/" + category, Item[].class);
     }
     
     @HystrixCommand(fallbackMethod = "fallbackItem")
     public Item[] itemsById(String id) {
-        return restTemplate.getForObject("http://item/category/" + id, Item[].class);
+        return restTemplate.getForObject("http://item/item/" + id, Item[].class);
     }
 
-    private Item[] fallbackItem(String category) {
+    private Item[] fallbackCategory(String category) {
         return itemProperties.getCategoryItemFromProperty(category);
+    }
+    
+    private Item[] fallbackItem(String id) {
+        return itemProperties.getItemIdFromProperty(id);
     }
 
     private Item[] fallbackItems() {

@@ -10,17 +10,17 @@ applications:
   path: commerce-price-service/target/commerce-price-service-0.0.1-SNAPSHOT
   services:
   - commerce-config-server
-  - commerce-eureka
+  - commerce-service-registry
 - name: commerce-item-service
   host: commerce-item-jls
   path: commerce-item-service/target/commerce-item-service-0.0.1-SNAPSHOT
   services:
   - commerce-config-server
-  - commerce-eureka
+  - commerce-service-registry
 - name: commerce-ui
   host: commerce-ui-jls
   path: commerce-ui/target/commerce-ui-0.0.1-SNAPSHOT.jar
   services:
   - commerce-config-server
-  - commerce-eureka
+  - commerce-service-registry
   - commerce-hystrix

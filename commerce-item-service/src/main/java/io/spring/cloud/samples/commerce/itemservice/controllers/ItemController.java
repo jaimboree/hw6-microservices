@@ -27,5 +27,11 @@ public class ItemController {
     Iterable<Item> items = repository.findByCategory(category);
     return items;
   }
-  
+
+  @RequestMapping("/item/{id}")
+  public Iterable<Item> itemsById(@PathVariable("id") String id) {
+	Long itemId = Long.parseLong(id);
+    Iterable<Item> items = repository.findById(itemId);
+    return items;
+  }
 }
